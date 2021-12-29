@@ -10,10 +10,10 @@ class QuizApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.grey,
-        body: SafeArea(
+        backgroundColor: Colors.grey.shade900,
+        body: const SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
             child: QuizPage(),
@@ -32,6 +32,25 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [
+    Icon(
+      Icons.check,
+      color: Colors.green,
+    ),
+    Icon(
+      Icons.close,
+      color: Colors.red,
+    ),
+    Icon(
+      Icons.check,
+      color: Colors.green,
+    ),
+    Icon(
+      Icons.close,
+      color: Colors.red,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,7 +59,7 @@ class _QuizPageState extends State<QuizPage> {
       children: [
         const Expanded(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(15.0),
             child: Center(
               child: Text(
                 'The question will be shows here.',
@@ -64,7 +83,14 @@ class _QuizPageState extends State<QuizPage> {
                     )),
                 onPressed: () {
                   print('true');
-                  //TODO: Add counting for true
+                  setState(() {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.check,
+                        color: Colors.green,
+                      ),
+                    );
+                  });
                 },
                 child: const Text(
                   'True',
@@ -85,7 +111,14 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   print('false');
-                  //TODO: Add counting for false.
+                  setState(() {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      ),
+                    );
+                  });
                 },
                 child: const Text(
                   'False',
@@ -102,11 +135,7 @@ class _QuizPageState extends State<QuizPage> {
           height: 10.0,
         ),
         Row(
-          children: const [
-            Expanded(
-              child: Text('Series of icons to track the progress'),
-            ),
-          ],
+          children: scoreKeeper,
         ),
       ],
     );
