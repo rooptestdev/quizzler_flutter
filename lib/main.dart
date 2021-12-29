@@ -32,24 +32,14 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Icon> scoreKeeper = [
-    Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
-    Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    ),
+  List<Icon> scoreKeeper = [];
+  List<String> questions = [
+    'Some random questions to check',
+    'Another random question to check',
+    'One more random question to check',
   ];
+  int questionNumber = 0;
+  List<bool> answers = [false, true, true];
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +47,12 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Expanded(
+        Expanded(
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: Center(
               child: Text(
-                'The question will be shows here.',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20.0,
@@ -83,6 +73,12 @@ class _QuizPageState extends State<QuizPage> {
                     )),
                 onPressed: () {
                   print('true');
+                  bool correctAnswer = answers[questionNumber];
+                  if (correctAnswer == true) {
+                    print('User right');
+                  } else {
+                    print('User wrong');
+                  }
                   setState(() {
                     scoreKeeper.add(
                       Icon(
@@ -90,6 +86,7 @@ class _QuizPageState extends State<QuizPage> {
                         color: Colors.green,
                       ),
                     );
+                    questionNumber++;
                   });
                 },
                 child: const Text(
@@ -111,6 +108,12 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   print('false');
+                  bool correctAnswer = answers[questionNumber];
+                  if (correctAnswer == false) {
+                    print('User right');
+                  } else {
+                    print('User wrong');
+                  }
                   setState(() {
                     scoreKeeper.add(
                       Icon(
@@ -118,6 +121,7 @@ class _QuizPageState extends State<QuizPage> {
                         color: Colors.red,
                       ),
                     );
+                    questionNumber++;
                   });
                 },
                 child: const Text(
