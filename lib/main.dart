@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
 void main() {
   runApp(const QuizApp());
@@ -7,7 +8,6 @@ void main() {
 class QuizApp extends StatelessWidget {
   const QuizApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,13 +33,17 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  List<String> questions = [
-    'Some random questions to check',
-    'Another random question to check',
-    'One more random question to check',
-  ];
   int questionNumber = 0;
-  List<bool> answers = [false, true, true];
+
+  List<Question> questionList = [
+    Question(
+        questionText: 'Some random questions to check', questionAnswer: false),
+    Question(
+        questionText: 'Another random question to check', questionAnswer: true),
+    Question(
+        questionText: 'One more random question to check',
+        questionAnswer: true),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +56,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(15.0),
             child: Center(
               child: Text(
-                questions[questionNumber],
+                questionList[0].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20.0,
@@ -73,7 +77,8 @@ class _QuizPageState extends State<QuizPage> {
                     )),
                 onPressed: () {
                   print('true');
-                  bool correctAnswer = answers[questionNumber];
+                  bool correctAnswer =
+                      questionList[questionNumber].questionAnswer;
                   if (correctAnswer == true) {
                     print('User right');
                   } else {
@@ -108,7 +113,8 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   print('false');
-                  bool correctAnswer = answers[questionNumber];
+                  bool correctAnswer =
+                      questionList[questionNumber].questionAnswer;
                   if (correctAnswer == false) {
                     print('User right');
                   } else {
