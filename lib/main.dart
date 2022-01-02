@@ -59,6 +59,8 @@ class _QuizPageState extends State<QuizPage> {
                 questionList[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Gruppo',
                   fontSize: 20.0,
                   color: Colors.white,
                 ),
