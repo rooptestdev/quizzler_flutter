@@ -56,7 +56,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(15.0),
             child: Center(
               child: Text(
-                questionList[0].questionText,
+                questionList[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20.0,
