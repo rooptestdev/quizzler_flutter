@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'question_bank.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() {
   runApp(const QuizApp());
@@ -42,24 +43,34 @@ class _QuizPageState extends State<QuizPage> {
   void checkAnswer(bool userPickAnswer) {
     bool correctAnswer = questionBank.getQuestionAnswer();
     setState(() {
-      if (userPickAnswer = correctAnswer) {
-        print('User right');
-        scoreKeeper.add(
-          const Icon(
-            Icons.check,
-            color: Colors.green,
-          ),
-        );
+      if (questionBank.isFinished() == true) {
+        Alert(
+                context: context,
+                title: "Finished",
+                desc: "You have reached the end.")
+            .show();
+        questionBank.reset();
+        scoreKeeper = [];
       } else {
-        print('User wrong');
-        scoreKeeper.add(
-          const Icon(
-            Icons.close,
-            color: Colors.red,
-          ),
-        );
+        if (userPickAnswer = correctAnswer) {
+          print('User right');
+          scoreKeeper.add(
+            const Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
+          );
+        } else {
+          print('User wrong');
+          scoreKeeper.add(
+            const Icon(
+              Icons.close,
+              color: Colors.red,
+            ),
+          );
+        }
+        questionBank.getQuestionNumber();
       }
-      questionBank.getQuestionNumber();
     });
   }
 
