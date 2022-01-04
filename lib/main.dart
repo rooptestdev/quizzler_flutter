@@ -15,7 +15,10 @@ class QuizApp extends StatelessWidget {
         backgroundColor: Colors.grey.shade900,
         body: const SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 10.0,
+            ),
             child: QuizPage(),
           ),
         ),
@@ -33,9 +36,32 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  int questionNumber = 0;
 
   QuestionBank questionBank = QuestionBank();
+
+  void checkAnswer(bool userPickAnswer) {
+    bool correctAnswer = questionBank.getQuestionAnswer();
+    setState(() {
+      if (userPickAnswer = correctAnswer) {
+        print('User right');
+        scoreKeeper.add(
+          const Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        print('User wrong');
+        scoreKeeper.add(
+          const Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+      questionBank.getQuestionNumber();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +74,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(15.0),
             child: Center(
               child: Text(
-                questionBank.questionList[questionNumber].questionText,
+                questionBank.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -71,22 +97,7 @@ class _QuizPageState extends State<QuizPage> {
                     )),
                 onPressed: () {
                   print('true');
-                  bool correctAnswer =
-                      questionBank.questionList[questionNumber].questionAnswer;
-                  if (correctAnswer == true) {
-                    print('User right');
-                  } else {
-                    print('User wrong');
-                  }
-                  setState(() {
-                    scoreKeeper.add(
-                      const Icon(
-                        Icons.check,
-                        color: Colors.green,
-                      ),
-                    );
-                    questionNumber++;
-                  });
+                  checkAnswer(true);
                 },
                 child: const Text(
                   'True',
@@ -109,22 +120,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   print('false');
-                  bool correctAnswer =
-                      questionBank.questionList[questionNumber].questionAnswer;
-                  if (correctAnswer == false) {
-                    print('User right');
-                  } else {
-                    print('User wrong');
-                  }
-                  setState(() {
-                    scoreKeeper.add(
-                      const Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      ),
-                    );
-                    questionNumber++;
-                  });
+                  checkAnswer(false);
                 },
                 child: const Text(
                   'False',

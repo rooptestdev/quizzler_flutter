@@ -1,7 +1,9 @@
 import 'question.dart';
 
+int _questionNumber = 0;
+
 class QuestionBank {
-  List<Question> questionList = [
+  List<Question> _questionList = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -28,4 +30,18 @@ class QuestionBank {
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
   ];
+
+  void getQuestionNumber() {
+    if (_questionNumber < _questionList.length - 1) {
+      _questionNumber++;
+    }
+  }
+
+  String getQuestionText() {
+    return _questionList[_questionNumber].questionText;
+  }
+
+  bool getQuestionAnswer() {
+    return _questionList[_questionNumber].questionAnswer;
+  }
 }
